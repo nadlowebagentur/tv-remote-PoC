@@ -11,6 +11,20 @@ const config = {
 
 const control = new Samsung(config)
 
+function sleep() {
+    return new Promise(resolve => setTimeout(resolve, 1000))
+}
+
+function sendKey(key) {
+    return new Promise(resolve => {
+        control.sendKey(key, function (err, res) {
+            console.dir({ err, res });
+
+            sleep().then(resolve);
+        })
+    })
+}
+
 async function run() {
     await control.turnOn();
 
@@ -24,25 +38,25 @@ async function run() {
         // console.info('# Response getToken:', token)
 
         // Send key to TV
-        await control.sendKeyPromise(KEYS.KEY_VOLDOWN);
-        await control.sendKeyPromise(KEYS.KEY_VOLUP);
-        await control.sendKeyPromise(KEYS.KEY_VOLDOWN);
-        await control.sendKeyPromise(KEYS.KEY_VOLUP);
-        await control.sendKeyPromise(KEYS.KEY_VOLDOWN);
-        await control.sendKeyPromise(KEYS.KEY_VOLUP);
-        await control.sendKeyPromise(KEYS.KEY_VOLDOWN);
-        await control.sendKeyPromise(KEYS.KEY_VOLUP);
-        await control.sendKeyPromise(KEYS.KEY_VOLDOWN);
-        await control.sendKeyPromise(KEYS.KEY_VOLUP);
+        await sendKey(KEYS.KEY_VOLDOWN);
+        await sendKey(KEYS.KEY_VOLUP);
+        await sendKey(KEYS.KEY_VOLDOWN);
+        await sendKey(KEYS.KEY_VOLUP);
+        await sendKey(KEYS.KEY_VOLDOWN);
+        await sendKey(KEYS.KEY_VOLUP);
+        await sendKey(KEYS.KEY_VOLDOWN);
+        await sendKey(KEYS.KEY_VOLUP);
+        await sendKey(KEYS.KEY_VOLDOWN);
+        await sendKey(KEYS.KEY_VOLUP);
 
-        await control.sendKeyPromise(KEYS.KEY_RIGHT);
-        await control.sendKeyPromise(KEYS.KEY_RIGHT);
-        await control.sendKeyPromise(KEYS.KEY_RIGHT);
-        await control.sendKeyPromise(KEYS.KEY_RIGHT);
+        await sendKey(KEYS.KEY_RIGHT);
+        await sendKey(KEYS.KEY_RIGHT);
+        await sendKey(KEYS.KEY_RIGHT);
+        await sendKey(KEYS.KEY_RIGHT);
 
-        await control.sendKeyPromise(KEYS.KEY_HOME);
-        await control.sendKeyPromise(KEYS.KEY_MENU);
-        await control.sendKeyPromise(KEYS.KEY_ID_SETUP);
+        await sendKey(KEYS.KEY_HOME);
+        await sendKey(KEYS.KEY_MENU);
+        await sendKey(KEYS.KEY_ID_SETUP);
     }
 }
 
