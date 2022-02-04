@@ -1,60 +1,34 @@
-import { Samsung, KEYS, APPS } from 'samsung-tv-control'
+import {Samsung, KEYS, APPS} from 'samsung-tv-control'
 
 const config = {
-  debug: true, // Default: false
-  ip: '192.168.0.53',
-  mac: '123456789ABC',
-  nameApp: 'NodeJS-Test', // Default: NodeJS
-  port: 8001, // Default: 8002
-  token: '12345678',
+    // debug: true, // Default: false
+    ip: '192.168.0.53',
+    mac: '64:E7:D8:AE:78:45',
+    nameApp: 'NodeJS-Test', // Default: NodeJS
+    port: 8001, // Default: 8002
+    // token: '12345678',
 }
 
 const control = new Samsung(config)
 
-control.turnOn()
-control
-  .isAvailable()
-  .then(() => {
-    // Get token for API
-    control.getToken(token => {
-      console.info('# Response getToken:', token)
-    })
+async function run() {
+    await control.turnOn();
 
-    // Send key to TV
-    control.sendKey(KEYS.KEY_HOME, function(err, res) {
-      if (err) {
-        throw new Error(err)
-      } else {
-        console.log(res)
-      }
-    })
+    const isAvailable = await control.isAvailable()
 
-    // Get all installed apps from TV
-    control.getAppsFromTV((err, res) => {
-      if (!err) {
-        console.log('# Response getAppsFromTV', res)
-      }
-    })
+    console.log({isAvailable});
 
-    // Get app icon by iconPath which you can get from getAppsFromTV
-    control.getAppIcon(
-      `/opt/share/webappservice/apps_icon/FirstScreen/${APPS.YouTube}/250x250.png`,
-      (err, res) => {
-        if (!err) {
-          console.log('# Response getAppIcon', res)
-        }
-      }
-    )
+    if (isAvailable) {
+        // Get token for API
+        const token = await control.getTokenPromise();
 
-    // Open app by appId which you can get from getAppsFromTV
-    control.openApp(APPS.YouTube, (err, res) => {
-      if (!err) {
-        console.log('# Response openApp', res)
-      }
-    })
+        console.info('# Response getToken:', token)
 
-    // Control will keep connection for next messages in 1 minute
-    // If you would like to close it immediately, you can use `closeConnection()`
-    control.closeConnection()
-  })
-  .catch(e => console.error(e))
+        // Send key to TV
+        await control.sendKey(KEYS.KEY_VOLDOWN, function (err, res) {
+            console.dir({ err, res })
+        })
+    }
+}
+
+run().then(() => console.log('Done')).catch((err) => console.error('[Got Error]', err))
