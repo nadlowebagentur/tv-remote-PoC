@@ -1,8 +1,8 @@
-const { Samsung, KEYS, APPS } = require('samsung-tv-control')
+import { Samsung, KEYS, APPS } from 'samsung-tv-control'
 
 const config = {
   debug: true, // Default: false
-  ip: '192.168.1.2',
+  ip: '192.168.0.53',
   mac: '123456789ABC',
   nameApp: 'NodeJS-Test', // Default: NodeJS
   port: 8001, // Default: 8002
