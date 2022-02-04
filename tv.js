@@ -17,6 +17,7 @@ function sleep() {
 
 function sendKey(key) {
     return new Promise(resolve => {
+        console.log('[sendKey]', key);
         control.sendKey(key, function (err, res) {
             console.dir({ err, res });
 
