@@ -20,14 +20,29 @@ async function run() {
 
     if (isAvailable) {
         // Get token for API
-        const token = await control.getTokenPromise();
-
-        console.info('# Response getToken:', token)
+        // const token = await control.getTokenPromise();
+        // console.info('# Response getToken:', token)
 
         // Send key to TV
-        await control.sendKey(KEYS.KEY_VOLDOWN, function (err, res) {
-            console.dir({ err, res })
-        })
+        await control.sendKeyPromise(KEYS.KEY_VOLDOWN);
+        await control.sendKeyPromise(KEYS.KEY_VOLUP);
+        await control.sendKeyPromise(KEYS.KEY_VOLDOWN);
+        await control.sendKeyPromise(KEYS.KEY_VOLUP);
+        await control.sendKeyPromise(KEYS.KEY_VOLDOWN);
+        await control.sendKeyPromise(KEYS.KEY_VOLUP);
+        await control.sendKeyPromise(KEYS.KEY_VOLDOWN);
+        await control.sendKeyPromise(KEYS.KEY_VOLUP);
+        await control.sendKeyPromise(KEYS.KEY_VOLDOWN);
+        await control.sendKeyPromise(KEYS.KEY_VOLUP);
+
+        await control.sendKeyPromise(KEYS.KEY_RIGHT);
+        await control.sendKeyPromise(KEYS.KEY_RIGHT);
+        await control.sendKeyPromise(KEYS.KEY_RIGHT);
+        await control.sendKeyPromise(KEYS.KEY_RIGHT);
+
+        await control.sendKeyPromise(KEYS.KEY_HOME);
+        await control.sendKeyPromise(KEYS.KEY_MENU);
+        await control.sendKeyPromise(KEYS.KEY_ID_SETUP);
     }
 }
 
